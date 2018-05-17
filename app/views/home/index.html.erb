@@ -1,0 +1,7 @@
+<h1> The Brass Bull </h1>
+
+<% if @current_user %>
+  <p> Welcome, <%= @current_user.name %> </p>
+<% else %>
+  <p> <%= link_to "Please Sign In", new_user_session_path %> </p>
+<% end %>
