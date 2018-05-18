@@ -8,9 +8,9 @@ Rails.application.initialize!
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
   :tls => true,
-  :address => "jaredcmurphy@gmail.com",
-  :port => 587,
-  :domain => "gmail.com",
+  :address => "smtp.gmail.com",
+  :port => 465,
+  :domain => ENV["EMAIL_DOMAIN"],
   :authentication => :login,
   :user_name => ENV["EMAIL_USERNAME"],
   :password => ENV["EMAIL_PASSWORD"]
