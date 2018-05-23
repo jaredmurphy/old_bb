@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :user_roles
   has_many :roles, through: :user_roles
+  has_many :posts
 
   after_create :assign_default_values
 
@@ -25,9 +26,9 @@ class User < ApplicationRecord
     self.user_roles << UserRole.create(user: self, role: Role.publisher)
   end
 
-  private 
+  private
 
-  def assign_default_values 
+  def assign_default_values
     self.user_roles << UserRole.create(user: self, role: Role.default)
   end
 end

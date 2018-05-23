@@ -2,12 +2,13 @@
 
 <% if @current_user %>
   <p> Welcome, <%= @current_user.email %>! </p>
+  <p> <%= link_to "My posts", user_posts_path(@current_user.id) %> </p>
 <% else %>
   <p> <%= link_to "Please Sign In", new_user_session_path %> </p>
 <% end %>
 
 <% if can? :create, Post %>
-  <p> <%= link_to "Write a new post", new_post_path %> </p>
+  <p> <%= link_to "Write a new post", new_user_post_path(@current_user.id) %> </p>
 <% else %>
   <p> Contact us for a publisher account </p>
 <% end %>
