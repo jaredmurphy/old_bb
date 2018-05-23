@@ -7,7 +7,7 @@
 <% end %>
 
 <% if can? :create, Post %>
-  <p>Write a new post</p>
+  <p> <%= link_to "Write a new post", new_post_path %> </p>
 <% else %>
-  <p>Contact us for a publisher account</p>
+  <p> Contact us for a publisher account </p>
 <% end %>
