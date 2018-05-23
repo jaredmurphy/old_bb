@@ -5,3 +5,9 @@
 <% else %>
   <p> <%= link_to "Please Sign In", new_user_session_path %> </p>
 <% end %>
+
+<% if can? :create, Post %>
+  <p>Write a new post</p>
+<% else %>
+  <p>Contact us for a publisher account</p>
+<% end %>

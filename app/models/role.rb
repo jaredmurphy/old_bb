@@ -4,18 +4,18 @@ class Role < ApplicationRecord
   validates :name, uniqueness: true, presence: true
 
   def self.default
-    Role.find_by(name: "user")
+    Role.find_by!(name: "user")
   end
 
   def self.publisher
-    Role.find_by(name: "publisher")
+    Role.find_by!(name: "publisher")
   end
 
   def self.moderator
-    Role.find_by(name: "moderator")
+    Role.find_by!(name: "moderator")
   end
 
   def self.admin
-    Role.find_by(name: "admin")
+    Role.find_by!(name: "admin")
   end
 end
