@@ -11,32 +11,40 @@ class User < ApplicationRecord
   after_create :assign_default_values
 
   def publisher?
-    self.roles.include? Role.publisher
+    has_role? Role.publisher
   end
 
   def moderator?
-    self.roles.include? Role.moderator
+    has_role? Role.moderator
   end
 
   def admin?
-    self.roles.include? Role.admin
+    has_role? Role.admin
   end
 
   def make_publisher!
-    self.user_roles << UserRole.create(user: self, role: Role.publisher)
+    add_role! Role.publisher
   end
 
   def make_moderator!
-    self.user_roles << UserRole.create(user: self, role: Role.moderator)
+    add_role! Role.moderator
   end
 
   def make_admin!
-    self.user_roles << UserRole.create(user: self, role: Role.admin)
+    add_role! Role.admin
   end
 
   private
 
+  def has_role?(role)
+    self.roles.include? role
+  end
+
+  def add_role!(role)
+    self.user_roles << UserRole.create(user: self, role: role)
+  end
+
   def assign_default_values
-    self.user_roles << UserRole.create(user: self, role: Role.default)
+    add_role! Role.default
   end
 end
