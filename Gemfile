@@ -38,10 +38,10 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'cancancan', '~> 2.0'
 
 group :development, :test do
-  gem 'factory_bot' 
+  gem 'faker'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 end

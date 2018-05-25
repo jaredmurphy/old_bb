@@ -26,6 +26,14 @@ class User < ApplicationRecord
     self.user_roles << UserRole.create(user: self, role: Role.publisher)
   end
 
+  def make_moderator!
+    self.user_roles << UserRole.create(user: self, role: Role.moderator)
+  end
+
+  def make_admin!
+    self.user_roles << UserRole.create(user: self, role: Role.admin)
+  end
+
   private
 
   def assign_default_values
