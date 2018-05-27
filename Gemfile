@@ -40,6 +40,7 @@ gem 'trix'
 gem "shrine", "~> 2.0"
 
 group :development, :test do
+  gem 'coveralls', require: false
   gem 'faker'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'
