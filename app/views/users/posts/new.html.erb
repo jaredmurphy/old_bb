@@ -3,11 +3,16 @@
 <%= form_for @post, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
   <%= f.hidden_field :user_id, value: @post.user_id %>
 
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
 
-  <%= f.label :body %>
-  <%= f.text_area :body, size: "60x12" %>
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body, id: :post_body %>
+    <trix-editor input="post_body"></trix-editor>
+  </div>
 
   <%= f.submit "Create" %>
 <% end %>
