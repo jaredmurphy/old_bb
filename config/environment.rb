@@ -5,7 +5,7 @@ require_relative 'application'
 Rails.application.initialize!
 
 # Action Mailer Configuration
-ActionMailer::Base.delivery_method = :smtp
+# Delivery method set per environment
 ActionMailer::Base.smtp_settings = {
   :tls => true,
   :address => "smtp.gmail.com",
