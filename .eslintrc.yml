@@ -1,0 +1,4 @@
+globals:
+  "App": true
+  "Rails": true 
+  "Trix": true
