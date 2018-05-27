@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'cancancan', '~> 2.0'
+gem 'trix'
 
 group :development, :test do
   gem 'faker'
