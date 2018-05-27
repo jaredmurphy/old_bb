@@ -4,9 +4,5 @@ Rails.application.routes.draw do
 
   resources :images, only: [:show, :create]
 
-  resources :users do
-    scope module: :users do
-      resources :posts, only: [:index, :show, :new, :create]
-    end
-  end
+  resources :posts, only: [:index, :show, :new, :create]
 end

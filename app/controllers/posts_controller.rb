@@ -1,11 +1,13 @@
-class Users::PostsController < ApplicationController
+class PostsController < ApplicationController
+  before_action :authenticate_user!, except: :show
   before_action :set_post, only: :show
 
   def index
     @posts = current_user.posts
   end
 
-  def show;end
+  def show
+  end
 
   def new
     @post = Post.new(user: current_user)
@@ -26,10 +28,10 @@ class Users::PostsController < ApplicationController
   private
 
   def set_post
-    @post = current_user.posts.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def post_params
-    params.require(:post).permit(:user_id, :title, :body)
+    params.require(:post).permit(:user_id, :title, :body).merge(user_id: current_user.id)
   end
 end
