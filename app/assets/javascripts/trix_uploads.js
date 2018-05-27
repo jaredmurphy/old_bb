@@ -1,3 +1,8 @@
+Trix.config.attachments.preview.caption = {
+  name: false,
+  size: false,
+}
+
 function uploadAttachment(attachment) {
   const file = attachment.file
   const form = new FormData
