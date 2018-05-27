@@ -14,5 +14,3 @@
 //= require turbolinks
 //= require trix
 //= require_tree .
-
-/* global App, Rails, Trix */
