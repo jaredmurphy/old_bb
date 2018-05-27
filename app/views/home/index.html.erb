@@ -3,6 +3,7 @@
 <% if @current_user %>
   <p> Welcome, <%= @current_user.email %>! </p>
   <p> <%= link_to "My posts", user_posts_path(@current_user.id) %> </p>
+  <p> <%= link_to 'logout', destroy_user_session_path, method: :delete %> </p>
 <% else %>
   <p> <%= link_to "Please Sign In", new_user_session_path %> </p>
 <% end %>
