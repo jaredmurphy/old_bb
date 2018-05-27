@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 FactoryBot.define do
   factory :post, class: Post do
     user  { FactoryBot.create(:user) }
