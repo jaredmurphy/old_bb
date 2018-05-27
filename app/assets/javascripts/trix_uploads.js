@@ -34,5 +34,7 @@ function uploadAttachment(attachment) {
 
 document.addEventListener('trix-attachment-add', event => {
   const attachment = event.attachment
-  if (attachment.file) return uploadAttachment(attachment)
+  if (attachment.file) {
+    return uploadAttachment(attachment)
+  }
 })
