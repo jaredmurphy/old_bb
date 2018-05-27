@@ -58,55 +58,5 @@ describe User do
       expect(user.admin?).to be_truthy 
     end
   end
-
-  # setters
-
-  describe "#make_publisher!" do
-    before(:each) do 
-      FactoryBot.create(:publisher_role)
-      @user = FactoryBot.create(:user)
-      @user.make_publisher!
-    end
-
-    it "adds the publisher role" do 
-      expect(@user.publisher?).to be_truthy
-    end
-
-    it "retains the default role" do 
-      expect(@user.roles.include? Role.default)
-    end
-  end
-
-  describe "#make_moderator!" do
-    before(:each) do 
-      FactoryBot.create(:moderator_role)
-      @user = FactoryBot.create(:user)
-      @user.make_moderator!
-    end
-
-    it "adds the moderator role" do 
-      expect(@user.moderator?).to be_truthy
-    end
-
-    it "retains the default role" do 
-      expect(@user.roles.include? Role.default)
-    end
-  end
-
-  describe "#make_admin!" do
-    before(:each) do 
-      FactoryBot.create(:admin_role)
-      @user = FactoryBot.create(:user)
-      @user.make_admin!
-    end
-
-    it "adds the admin role" do 
-      expect(@user.admin?).to be_truthy
-    end
-
-    it "retains the default role" do 
-      expect(@user.roles.include? Role.admin)
-    end
-  end
 end
 

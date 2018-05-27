@@ -22,29 +22,18 @@ class User < ApplicationRecord
     has_role? Role.admin
   end
 
-  def make_publisher!
-    add_role! Role.publisher
-  end
-
-  def make_moderator!
-    add_role! Role.moderator
-  end
-
-  def make_admin!
-    add_role! Role.admin
-  end
-
   private
 
   def has_role?(role)
     self.roles.include? role
   end
 
+  def assign_default_values
+    add_role! Role.default
+  end
+
   def add_role!(role)
     self.user_roles << UserRole.create(user: self, role: role)
   end
 
-  def assign_default_values
-    add_role! Role.default
-  end
 end
