@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cancan/matchers"
 
 describe User do
   before(:each) do 
@@ -31,13 +32,12 @@ describe User do
       it "requires uniqueness of email" do 
         user = FactoryBot.create(:user)
         invalid_user = FactoryBot.build(:user, email: user.email)
+
         expect(invalid_user).to be_invalid
       end
     end
   end
  
-  # getters
-
   describe "#publisher?" do 
     it "returns true if the user has the role publisher" do 
       user = FactoryBot.create(:publisher_user)
@@ -56,6 +56,73 @@ describe User do
     it "returns true if the user has the role admin" do 
       user = FactoryBot.create(:admin_user)
       expect(user.admin?).to be_truthy 
+    end
+  end
+
+  describe "abilities" do 
+    before(:each) do 
+      FactoryBot.create(:publisher_role)
+      FactoryBot.create(:moderator_role)
+      FactoryBot.create(:admin_role)
+    end
+
+    context "when the user is guest user" do 
+      before(:each) do 
+        @ability = Ability.new(nil)
+      end
+
+      it "can read posts" do 
+        @ability.should be_able_to(:read, Post) 
+      end
+    end
+
+    context "when the user is a default user" do 
+      before(:each) do 
+        @user = FactoryBot.create(:user)
+        @user2 = FactoryBot.create(:user)
+        @ability = Ability.new(@user)
+      end
+
+      it "cannot write a post" do 
+        @ability.should_not be_able_to(:create, Post)
+      end
+    end
+
+    context "when the user is a publisher user" do 
+      before(:each) do 
+        @user = FactoryBot.create(:publisher_user)
+        @ability = Ability.new(@user)
+      end
+
+      it "can manage their own posts" do 
+        @ability.should be_able_to(:manage, Post, user_id: @user.id)
+      end
+    end
+
+    context "when the user is a moderator user" do 
+      before(:each) do 
+        @user = FactoryBot.create(:moderator_user)
+        @ability = Ability.new(@user)
+      end
+
+      it "can manage all posts" do 
+        @ability.should be_able_to(:manage, Post)
+      end
+    end
+
+    context "when the user is a admin user" do 
+      before(:each) do 
+        @user = FactoryBot.create(:admin_user)
+        @ability = Ability.new(@user)
+      end
+
+      it "can manage all posts" do 
+        @ability.should be_able_to(:manage, Post)
+      end
+
+      it "can manage all users" do 
+        @ability.should be_able_to(:manage, User)
+      end
     end
   end
 end

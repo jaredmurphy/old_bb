@@ -5,15 +5,15 @@ FactoryBot.define do
   end
 
   factory :publisher_user, parent: :user, class: User do 
-    roles { [FactoryBot.create(:role, name: "publisher")] }
+    roles { [Role.publisher || FactoryBot.create(:role, name: "publisher")] }
   end
 
   factory :moderator_user, parent: :user, class: User do 
-    roles { [FactoryBot.create(:role, name: "moderator")] }
+    roles { [Role.moderator || FactoryBot.create(:role, name: "moderator")] }
   end
 
   factory :admin_user, parent: :user, class: User do 
-    roles { [FactoryBot.create(:role, name: "admin")] }
+    roles { [Role.admin || FactoryBot.create(:role, name: "admin")] }
   end
 end
 
