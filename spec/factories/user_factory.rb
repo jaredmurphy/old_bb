@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :user, class: User do
     email    { Faker::Internet.email } 
     password { Faker::Internet.password }
+    confirmed_at Date.today
   end
 
   factory :publisher_user, parent: :user, class: User do 
