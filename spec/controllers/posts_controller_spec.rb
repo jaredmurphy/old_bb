@@ -38,6 +38,7 @@ describe "Posts", type: :controller do
   context "when the user is not authenticated" do 
     before(:each) do 
       user = FactoryBot.create(:user)
+      sign_in(nil)
     end
 
     it "should redirect to the login page for index" do 
