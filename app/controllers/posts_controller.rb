@@ -11,7 +11,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(user: current_user)
+    @post = Post.new
+    @pseudonyms = current_user.pseudonyms
   end
 
   def create
@@ -47,7 +48,7 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post)
-      .permit(:user_id, :title, :body, :pseudonym_id)
+      .permit(:title, :body, :pseudonym_id)
       .merge(user_id: current_user.id)
   end
 end
