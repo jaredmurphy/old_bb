@@ -1,5 +1,7 @@
 <div><%= @post.title %></div>
 
+<p> By: <%= @post.pseudonym.name %> </p>
+
 <p><%= link_to "Edit", edit_post_path(@post.id) %></p>
 
 <div><%= sanitize @post.body %></div>

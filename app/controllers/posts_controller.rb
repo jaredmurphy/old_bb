@@ -11,7 +11,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(user: current_user)
+    @post = Post.new
+    @pseudonyms = current_user.pseudonyms
   end
 
   def create
