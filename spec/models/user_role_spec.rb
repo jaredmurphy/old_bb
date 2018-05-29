@@ -12,7 +12,7 @@ describe UserRole do
       expect(user_role).to be_invalid
     end
 
-    it "is is invalid if user and role are not unique" do 
+    it "it is invalid if user and role are not unique" do 
       user_role = FactoryBot.create(:user_role)
       invalid_user_role = FactoryBot.build(
         :user_role, 

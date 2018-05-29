@@ -4,8 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  validates :username, presence: true, uniqueness: true
+
   has_many :user_roles
   has_many :roles, through: :user_roles
+
+  has_many :user_pseudonyms
+  has_many :user_pseudonyms, through: :user_pseudonyms
+
   has_many :posts
 
   after_create :assign_default_values
