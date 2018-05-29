@@ -8,9 +8,8 @@ describe "Posts", type: :controller do
 
   context "when the user is authenticated" do 
     before(:each) do 
-      user = FactoryBot.create(:user)
-      @post = FactoryBot.create(:post, user: user)
-      sign_in(user)
+      @user = FactoryBot.create(:user)
+      sign_in(@user)
     end
 
     describe "#index" do 
@@ -22,11 +21,12 @@ describe "Posts", type: :controller do
 
     describe "#create" do 
       before(:each) do 
-        post :create, params: { post: @post.attributes }
+        new_post = FactoryBot.build(:post, user: @user)
+        post :create, params: { post: new_post.attributes }
       end
 
       it "should create the post" do 
-        expect(Post.count).to eq(2)
+        expect(Post.count).to eq(1)
       end
 
       it "should redirect to the new post" do 
