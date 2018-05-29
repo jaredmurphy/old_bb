@@ -22,6 +22,11 @@ describe User do
         expect(user).to be_invalid
       end
 
+      it "requires presence of username" do 
+        user = FactoryBot.build(:user, username: nil)
+        expect(user).to be_invalid
+      end
+
       it "requires presence of password" do 
         user = FactoryBot.build(:user, password: nil)
         expect(user).to be_invalid
@@ -32,6 +37,13 @@ describe User do
       it "requires uniqueness of email" do 
         user = FactoryBot.create(:user)
         invalid_user = FactoryBot.build(:user, email: user.email)
+
+        expect(invalid_user).to be_invalid
+      end
+
+      it "requires uniqueness of username" do 
+        user = FactoryBot.create(:user)
+        invalid_user = FactoryBot.build(:user, username: user.username)
 
         expect(invalid_user).to be_invalid
       end
