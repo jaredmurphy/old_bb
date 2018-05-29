@@ -1,0 +1,8 @@
+<h1> Your Pseudonyms </h1>
+
+<p> <%= link_to "Create Pseudonym", new_user_pseudonym_path(user_id: current_user.id) %> </p> 
+
+<% @pseudonyms.each do |pseudo| %>
+  <p> <%= pseudo.name %> </p>
+<% end %>
+

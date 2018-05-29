@@ -1,0 +1,22 @@
+<%= form_for pseudonym, url: { action: "create" } do |form| %>
+  <% if pseudonym.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pseudonym.errors.count, "error") %> prohibited this pseudonym from being saved:</h2>
+
+      <ul>
+      <% pseudonym.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :pseudonym_name, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
