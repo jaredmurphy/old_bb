@@ -9,6 +9,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def update
+    if @comment.update(comment_params)
+      redirect_back fallback_location: root_path, notice: "Comment successfully updated"
+    else 
+      redirect_back fallback_location: root_path, alert: "Oops something went wrong"
+    end
+  end
+
   private 
 
   def comment_params

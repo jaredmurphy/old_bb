@@ -1,8 +1,7 @@
 require "rails_helper"
 
-describe "Posts", type: :controller do 
+describe PostsController, type: :controller do 
   before(:each) do 
-    @controller = PostsController.new
     FactoryBot.create(:role)
   end
 

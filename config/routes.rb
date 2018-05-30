@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   resources :images, only: [:show, :create]
 
   resources :posts do 
-    resources :comments, only: :create, module: :posts
+    resources :comments, only: [:create, :update], module: :posts
   end
 
   resources :comments do 
-    resources :comments, only: :create, module: :comments
+    resources :comments, only: [:create, :update],  module: :comments
   end
 
   resources :users do 
