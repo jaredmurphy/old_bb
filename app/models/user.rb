@@ -8,11 +8,10 @@ class User < ApplicationRecord
 
   has_many :user_roles
   has_many :roles, through: :user_roles
-
   has_many :user_pseudonyms
   has_many :pseudonyms, through: :user_pseudonyms
-
   has_many :posts
+  has_many :comments
 
   after_create :assign_default_values
 
