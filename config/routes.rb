@@ -3,7 +3,14 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :images, only: [:show, :create]
-  resources :posts, only: [:index, :show, :new, :create, :edit, :update]
+
+  resources :posts do 
+    resources :comments, only: :create, module: :posts
+  end
+
+  resources :comments do 
+    resources :comments, only: :create, module: :comments
+  end
 
   resources :users do 
     scope module: :users do
