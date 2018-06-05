@@ -7,4 +7,5 @@
 <div><%= sanitize @post.body %></div>
 
 <%= render partial: "comments/form", locals: { commentable: @post } %>
+<%= render partial: "comments/index", locals: { comments: @post.comments } %>
 
