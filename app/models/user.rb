@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :comments
 
   after_create :assign_default_values
+  after_update :add_new_pseudonym, if: :username_changed?
 
   def publisher?
     has_role? Role.publisher
@@ -35,10 +36,18 @@ class User < ApplicationRecord
 
   def assign_default_values
     add_role! Role.default
+    add_pseudonym! self.username
+  end
+
+  def add_new_pseudonym
+    add_pseudonym! self.username
   end
 
   def add_role!(role)
     self.user_roles << UserRole.create(user: self, role: role)
   end
 
+  def add_pseudonym!(pseudonym)
+    self.pseudonyms.create!(name: pseudonym)
+  end
 end
