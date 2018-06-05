@@ -25,7 +25,7 @@ describe Users::PseudonymsController, type: :controller do
       end
 
       it "should create the pseudonym" do 
-        expect(Pseudonym.count).to eq(1)
+        expect(Pseudonym.count).to eq(2)
       end
 
       it "should redirect to the root path" do 
