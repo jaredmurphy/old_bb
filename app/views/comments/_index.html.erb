@@ -1,0 +1,16 @@
+<div class="comments">
+  <% comments.each do |comment| %>
+    <div class="comment">
+      <p><%= comment.user.username %></p>
+      <p><%= comment.created_at %></p>
+      <p><%= comment.body %></p>
+
+      <div class="sub-comment-form">
+        <p> Respond to <%= comment.user.username %></p>
+        <%= render partial: "comments/form", locals: { commentable: comment } %>
+      </div>
+
+      <%= render partial: "comments/index", locals: { comments: comment.comments } %>
+    </div>
+  <% end %>
+</div>
