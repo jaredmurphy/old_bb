@@ -10,7 +10,7 @@ describe User do
     describe "#after_create" do
       it "assigns a new user to the default role" do
         user = FactoryBot.create(:user)
-        expect(user.roles.include? Role.default)
+        expect(user.roles).to include(Role.default)
       end
 
       it "assigns a new user to a new pseudonym" do
@@ -18,6 +18,18 @@ describe User do
         pseudo = Pseudonym.find_by(name: user.username)
 
         expect(user.pseudonyms).to include(pseudo)
+      end
+    end
+
+    describe "#after_update" do
+      context "when the username changes" do
+        it "assigns the new pseudonym to the user" do
+          user = FactoryBot.create(:user)
+          user.update!(username: "a new username")
+          pseudo = Pseudonym.find_by(name: user.username)
+
+          expect(user.pseudonyms).to include(pseudo)
+        end
       end
     end
   end
