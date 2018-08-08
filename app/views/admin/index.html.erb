@@ -1,0 +1,6 @@
+<% @posts.each do |post| %>
+  <p>
+    <%= link_to post.title, admin_post_path(current_user.id, post.id) %> |
+    <%= link_to "Edit", edit_admin_post_path(current_user.id, post.id) %>
+  </p>
+<% end %>

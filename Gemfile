@@ -41,6 +41,7 @@ gem "shrine", "~> 2.0"
 
 group :development, :test do
   gem 'pry'
+  gem 'pry-rails'
   gem 'database_cleaner'
   gem 'coveralls', require: false
   gem 'faker'
@@ -48,6 +49,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'better_errors'
 end
 
 group :development do
