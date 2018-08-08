@@ -1,6 +1,6 @@
 class Admin::PostsController < AdminController
   before_action :authenticate_admin!
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -20,6 +20,12 @@ class Admin::PostsController < AdminController
       flash[:alert] = "Oops something went wrong"
       redirect_to root_path
     end
+  end
+
+  def destroy
+    @post.destroy
+    flash[:notice] = "Post permanently destroyed"
+    redirect_to admin_posts_path(current_user.id)
   end
 
   private

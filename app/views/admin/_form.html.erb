@@ -26,3 +26,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= button_to "delete", admin_post_path(post), method: :delete, data: { confirm: "You sure?" } %>
