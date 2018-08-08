@@ -27,7 +27,7 @@ describe Admin::PostsController, type: :controller do
 
     describe "#index" do
       it "redirects to the home page" do
-        get :index, admin_id: @user.id
+        get :index, params: { admin_id: @user.id }
         expect(response).to redirect_to(root_path)
       end
     end
