@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admin do
+  namespace :moderator do
     resources :posts
   end
 end
