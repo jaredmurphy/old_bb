@@ -2,7 +2,9 @@
 
 <p> By: <%= @post.pseudonym.name %> </p>
 
-<p><%= link_to "Edit", edit_post_path(@post.id) %></p>
+<% if can? :edit, @post %>
+  <p> <%= link_to "Edit", edit_post_path(@post.id) %> </p>
+<% end %>
 
 <div><%= sanitize @post.body %></div>
 

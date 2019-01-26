@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :post, class: Post do
-    user      { FactoryBot.create(:user) }
+    user
     title     { Faker::Lorem.word }
     body      { Faker::Lorem.paragraph }
-    pseudonym { FactoryBot.create(:pseudonym) }
+    pseudonym
   end
 end

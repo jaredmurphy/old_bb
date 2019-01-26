@@ -1,10 +1,6 @@
 require "rails_helper"
 
 describe Admin::PostsController, type: :controller do
-  before(:each) do
-    FactoryBot.create(:role)
-  end
-
   context "when the user is an admin" do
     before(:each) do
       @user = FactoryBot.create(:admin_user)

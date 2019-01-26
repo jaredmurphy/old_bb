@@ -2,69 +2,50 @@ require 'rails_helper'
 require "cancan/matchers"
 
 describe User do
-  before(:each) do
-    FactoryBot.create(:role)
+  describe "Validations" do
+    let(:user) { FactoryBot.build(:user) }
+
+    it "is valid with valid attributes" do
+      expect(user).to be_valid
+    end
+
+    it "is invalid without an email" do
+      user.email = ''
+      expect(user).to be_invalid
+    end
+
+    it "is invalid without a password" do
+      user.password = ""
+      expect(user).to be_invalid
+    end
+
+    it "is invalid without a unique email" do
+      user.save
+      second_user = FactoryBot.build(:user, email: user.email)
+
+      expect(second_user).to be_invalid
+    end
   end
 
   describe "callbacks" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:pseudonym) { FactoryBot.create(:pseudonym, user: user) }
+
     describe "#after_create" do
-      it "assigns a new user to the default role" do
-        user = FactoryBot.create(:user)
-        expect(user.roles).to include(Role.default)
-      end
-
-      it "assigns a new user to a new pseudonym" do
-        user = FactoryBot.create(:user)
-        pseudo = Pseudonym.find_by(name: user.username)
-
-        expect(user.pseudonyms).to include(pseudo)
+      it "assigns a new user to the user role" do
+        expect(user.roles).to include(Role.user)
       end
     end
 
-    describe "#after_update" do
-      context "when the username changes" do
-        it "assigns the new pseudonym to the user" do
-          user = FactoryBot.create(:user)
-          user.update!(username: "a new username")
-          pseudo = Pseudonym.find_by(name: user.username)
+    describe "#before_destroy" do
+      before(:each) { user.destroy }
 
-          expect(user.pseudonyms).to include(pseudo)
-        end
-      end
-    end
-  end
-
-  describe "validations" do
-    describe "presence" do
-      it "requires presence of email" do
-        user = FactoryBot.build(:user, email: nil)
-        expect(user).to be_invalid
+      it "destroys all pseduonyms that belong to the user" do
+        expect(user.pseudonyms.count).to eq 0
       end
 
-      it "requires presence of username" do
-        user = FactoryBot.build(:user, username: nil)
-        expect(user).to be_invalid
-      end
-
-      it "requires presence of password" do
-        user = FactoryBot.build(:user, password: nil)
-        expect(user).to be_invalid
-      end
-    end
-
-    describe "uniqueness" do
-      it "requires uniqueness of email" do
-        user = FactoryBot.create(:user)
-        invalid_user = FactoryBot.build(:user, email: user.email)
-
-        expect(invalid_user).to be_invalid
-      end
-
-      it "requires uniqueness of username" do
-        user = FactoryBot.create(:user)
-        invalid_user = FactoryBot.build(:user, username: user.username)
-
-        expect(invalid_user).to be_invalid
+      it "destroys all user_roles that belong to the user" do
+        expect(user.user_roles.count).to eq 0
       end
     end
   end
@@ -90,70 +71,59 @@ describe User do
     end
   end
 
-  describe "abilities" do
-    before(:each) do
-      FactoryBot.create(:publisher_role)
-      FactoryBot.create(:moderator_role)
-      FactoryBot.create(:admin_role)
+  describe "user's default pseudonym" do
+    let(:user) { FactoryBot.create(:user) }
+    before { user.pseudonyms << FactoryBot.create(:pseudonym, user: user) }
+
+    describe "#default_pseudonym" do
+      it "returns the user's default pseudonym" do
+        expect(user.default_pseudonym).to be_truthy
+      end
     end
+  end
+
+  describe "user abilities" do
+    let(:publisher_role) { FactoryBot.create(:publisher_role) }
+    let(:moderator_role) { FactoryBot.create(:moderator_role) }
+    let(:admin_role) { FactoryBot.create(:admin_role) }
 
     context "when the user is guest user" do
-      before(:each) do
-        @ability = Ability.new(nil)
-      end
+      let(:user){ nil }
+      subject(:ability){ Ability.new(user) }
 
-      it "can read posts" do
-        @ability.should be_able_to(:read, Post)
-      end
+     it{ should be_able_to(:show, Post) }
+     it{ should be_able_to(:index, Post) }
     end
 
-    context "when the user is a default user" do
-      before(:each) do
-        @user = FactoryBot.create(:user)
-        @user2 = FactoryBot.create(:user)
-        @ability = Ability.new(@user)
-      end
+    context "when the user is a user user" do
+      let(:user){ FactoryBot.create(:user) }
+      subject(:ability){ Ability.new(user) }
 
-      it "cannot write a post" do
-        @ability.should_not be_able_to(:create, Post)
-      end
+      it{ should_not be_able_to(:create, Post) }
     end
 
     context "when the user is a publisher user" do
-      before(:each) do
-        @user = FactoryBot.create(:publisher_user)
-        @ability = Ability.new(@user)
-      end
+      let(:user){ FactoryBot.create(:publisher_user) }
+      let(:second_user){ FactoryBot.create(:publisher_user) }
+      subject(:ability){ Ability.new(user) }
 
-      it "can manage their own posts" do
-        @ability.should be_able_to(:manage, Post, user_id: @user.id)
-      end
+      it{ should be_able_to(:manage, Post, user_id: user.id) }
+      it{ should_not be_able_to(:manage, Post.where(user_id: second_user.id), user_id: user.id) }
     end
 
     context "when the user is a moderator user" do
-      before(:each) do
-        @user = FactoryBot.create(:moderator_user)
-        @ability = Ability.new(@user)
-      end
+      let(:user){ FactoryBot.create(:moderator_user) }
+      subject(:ability){ Ability.new(user) }
 
-      it "can manage all posts" do
-        @ability.should be_able_to(:manage, Post)
-      end
+      it{ should be_able_to(:manage, Post) }
     end
 
     context "when the user is a admin user" do
-      before(:each) do
-        @user = FactoryBot.create(:admin_user)
-        @ability = Ability.new(@user)
-      end
+      let(:user){ FactoryBot.create(:admin_user) }
+      subject(:ability){ Ability.new(user) }
 
-      it "can manage all posts" do
-        @ability.should be_able_to(:manage, Post)
-      end
-
-      it "can manage all users" do
-        @ability.should be_able_to(:manage, User)
-      end
+      it{ should be_able_to(:manage, Post) }
+      it{ should be_able_to(:manage, User) }
     end
   end
 end

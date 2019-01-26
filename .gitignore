@@ -20,3 +20,5 @@
 *.swp
 *.swo
 public/uploads/*
+.env
+/coverage

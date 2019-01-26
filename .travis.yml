@@ -8,4 +8,4 @@ before_script:
 
 script:
   - bin/rake db:migrate RAILS_ENV=test
-  - bundle exec rspec
+  - bundle exec rspec --require spec_helper --require rails_helper

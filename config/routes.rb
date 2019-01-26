@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations'}
+
   root "home#index"
 
   resources :images, only: [:show, :create]
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :moderator do
+  namespace :admin do
     resources :posts
   end
 end

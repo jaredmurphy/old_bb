@@ -1,21 +1,15 @@
 class Role < ApplicationRecord
+  TYPES = %w(user publisher moderator admin)
+
   has_many :user_roles
 
   validates :name, uniqueness: true, presence: true
 
-  def self.default
-    Role.find_by(name: "user")
-  end
-
-  def self.publisher
-    Role.find_by(name: "publisher")
-  end
-
-  def self.moderator
-    Role.find_by(name: "moderator")
-  end
-
-  def self.admin
-    Role.find_by(name: "admin")
+  class << self
+    TYPES.each do |role_type|
+      define_method "#{role_type}" do
+        Role.find_by(name: role_type)
+      end
+    end
   end
 end

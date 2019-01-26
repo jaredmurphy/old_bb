@@ -1,46 +1,32 @@
 require 'rails_helper'
 
 describe Role do
-  describe "validations" do 
-    it "is invalid without a name" do 
-      role = FactoryBot.build(:role, name: nil)
-      expect(role).to be_invalid
-    end
-
-    it "is invalid without a unique name" do 
-      role = FactoryBot.create(:role)
-      invalid_role = FactoryBot.build(:role, name: role.name)
-
-      expect(invalid_role).to be_invalid
-    end
-  end
-
-  describe "class methods" do 
-    describe "#default" do 
-      it "returns the default role" do 
-        default_role = FactoryBot.create(:role)
-        expect(Role.default).to eq(default_role)
+  describe "class methods" do
+    describe "#user" do
+      it "returns the user role" do
+        FactoryBot.create(:role)
+        expect(Role.user.name).to eq("user")
       end
     end
 
-    describe "#publisher" do 
-      it "returns the publisher role" do 
-        publisher_role = FactoryBot.create(:publisher_role)
-        expect(Role.publisher).to eq(publisher_role)
+    describe "#publisher" do
+      it "returns the publisher role" do
+        FactoryBot.create(:publisher_role)
+        expect(Role.publisher.name).to eq("publisher")
       end
     end
 
-    describe "#moderator" do 
-      it "returns the moderator role" do 
-        moderator_role = FactoryBot.create(:moderator_role)
-        expect(Role.moderator).to eq(moderator_role)
+    describe "#moderator" do
+      it "returns the moderator role" do
+        FactoryBot.create(:moderator_role)
+        expect(Role.moderator.name).to eq("moderator")
       end
     end
 
-    describe "#admin" do 
-      it "returns the admin role" do 
-        admin_role = FactoryBot.create(:admin_role)
-        expect(Role.admin).to eq(admin_role)
+    describe "#admin" do
+      it "returns the admin role" do
+        FactoryBot.create(:admin_role)
+        expect(Role.admin.name).to eq("admin")
       end
     end
   end

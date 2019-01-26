@@ -6,7 +6,6 @@
 
 <% if current_user %>
   <p> Welcome, <%= current_user.email %>! </p>
-  <p> <%= link_to "My posts", posts_path %> </p>
   <p> <%= link_to 'logout', destroy_user_session_path, method: :delete %> </p>
 <% else %>
   <p> <%= link_to "Please Sign In", new_user_session_path %> </p>
@@ -14,7 +13,13 @@
 
 <% if can? :create, Post %>
   <p> <%= link_to "Write a new post", new_post_path %> </p>
+  <p> <%= link_to "My posts", posts_path %> </p>
   <p> <%= link_to "My Pseudonyms", user_pseudonyms_path(user_id: current_user.id) %> </p>
 <% else %>
-  <p> Contact us for a publisher account </p>
+    <p> Contact us for a publisher account </p>
+<% end %>
+
+
+<% if can? :manage, Post.all %>
+  <p> <%= link_to "Admin Posts", admin_posts_path %> </p>
 <% end %>

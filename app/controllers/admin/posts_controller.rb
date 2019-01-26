@@ -1,4 +1,5 @@
-class Moderator:PostsController < ModeratorController
+class Admin::PostsController < AdminController
+  before_action :authenticate_admin!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -24,7 +25,7 @@ class Moderator:PostsController < ModeratorController
   def destroy
     @post.destroy
     flash[:notice] = "Post permanently destroyed"
-    redirect_to admin_posts_path(current_user.id)
+    redirect_to admin_posts_path
   end
 
   private

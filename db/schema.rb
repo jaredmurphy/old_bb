@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530033439) do
+ActiveRecord::Schema.define(version: 20190220041127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,21 +47,15 @@ ActiveRecord::Schema.define(version: 20180530033439) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.boolean "default", default: false
+    t.index ["user_id"], name: "index_pseudonyms_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "user_pseudonyms", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "pseudonym_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["pseudonym_id"], name: "index_user_pseudonyms_on_pseudonym_id"
-    t.index ["user_id"], name: "index_user_pseudonyms_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -90,7 +84,6 @@ ActiveRecord::Schema.define(version: 20180530033439) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -99,8 +92,7 @@ ActiveRecord::Schema.define(version: 20180530033439) do
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "pseudonyms"
   add_foreign_key "posts", "users"
-  add_foreign_key "user_pseudonyms", "pseudonyms"
-  add_foreign_key "user_pseudonyms", "users"
+  add_foreign_key "pseudonyms", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end

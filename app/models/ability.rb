@@ -2,9 +2,11 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :read, Post # define rules for all users, also not logged ones
+    alias_action :index, :show, :to => :read
 
-    if user.present?
+    can :read, Post # define rules for all users, also not authorized ones
+
+    if user.present? # logged in user
       if user.publisher?
         can :manage, Post, user_id: user.id
       end
@@ -18,5 +20,4 @@ class Ability
       end
     end
   end
-
 end
