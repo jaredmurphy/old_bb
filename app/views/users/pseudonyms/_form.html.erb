@@ -14,6 +14,7 @@
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name, id: :pseudonym_name, class: "form-control" %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
   <div class="actions">

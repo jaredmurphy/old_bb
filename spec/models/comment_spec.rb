@@ -1,48 +1,45 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  describe "validations" do 
-    describe "presence" do 
-      it "is invalid without a user" do 
-        comment = FactoryBot.build(:comment, user: nil)
+  describe "Validations" do
+    let(:comment) { FactoryBot.build(:comment) }
+
+    describe "presence" do
+      it "is invalid without a user" do
+        comment.user = nil
         expect(comment).to be_invalid
       end
 
-      it "is invalid without a commentable_type" do 
-        comment = FactoryBot.build(:comment, commentable_type: nil)
+      it "is invalid without a commentable_type" do
+        comment.commentable_type = nil
         expect(comment).to be_invalid
       end
 
-      it "is invalid without a commentable_id" do 
-        comment = FactoryBot.build(:comment, commentable_id: nil)
+      it "is invalid without a commentable_id" do
+        comment.commentable_id = nil
         expect(comment).to be_invalid
       end
 
-      it "is invalid without a body" do 
-        comment = FactoryBot.build(:comment, body: nil)
-        expect(comment).to be_invalid
-      end
-    end
-
-    describe "length" do 
-      it "is invalid with body length < 1" do 
-        comment = FactoryBot.build(:comment, body: "")
+      it "is invalid without a body" do
+        comment.body = nil
         expect(comment).to be_invalid
       end
     end
   end
 
-  describe "commentable types" do 
-    context "when it is a comment on a comment" do 
-      it "will return comment for commentable" do 
-        comment = FactoryBot.create(:comment_comment)
+  describe "commentable types" do
+    context "when it is a comment on a comment" do
+      let (:comment) { FactoryBot.create(:comment_comment) }
+
+      it "will return comment for commentable" do
         expect(comment.commentable.class).to be(Comment)
       end
     end
 
-    context "when it is a comment on a post" do 
-      it "will return post for commentable" do 
-        comment = FactoryBot.create(:post_comment)
+    context "when it is a comment on a post" do
+      let (:comment) { FactoryBot.create(:post_comment) }
+
+      it "will return post for commentable" do
         expect(comment.commentable.class).to be(Post)
       end
     end

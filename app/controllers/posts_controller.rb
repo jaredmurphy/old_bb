@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :show
+  before_action :authorize_action!, except: :show
   before_action :set_user_post, only: [:edit, :update]
+  before_action :set_user_pseudonyms, only: [:new, :edit]
 
   def index
     @posts = current_user.posts
@@ -12,7 +14,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @pseudonyms = current_user.pseudonyms
   end
 
   def create
@@ -27,8 +28,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit 
-  end
+  def edit;end
 
   def update
     if @post.update(post_params)
@@ -42,8 +42,16 @@ class PostsController < ApplicationController
 
   private
 
+  def authorize_action!
+    authorize! params[:action].to_sym, Post
+  end
+
   def set_user_post
     @post = current_user.posts.find(params[:id])
+  end
+
+  def set_user_pseudonyms
+    @pseudonyms = current_user.pseudonyms
   end
 
   def post_params

@@ -2,7 +2,7 @@ class Posts::CommentsController < CommentsController
   before_action :set_commentable, only: :create
   before_action :set_comment, only: :update
 
-  private 
+  private
 
   def set_comment
     @comment = current_user.comments.find(params[:id])

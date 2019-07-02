@@ -17,15 +17,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :pseudonym %>
-    <%= form.select :pseudonym_id do %>
-      <% @pseudonyms.each do |pseudo| %>
-        <%= content_tag(:option, pseudo.name, value: pseudo.id) %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="field">
     <%= form.label :body %>
     <%= form.hidden_field :body, id: :post_body, class: "form-control" %>
     <trix-editor input="post_body"></trix-editor>
@@ -36,3 +27,4 @@
   </div>
 <% end %>
 
+<%= button_to "delete", admin_post_path(post), method: :delete, data: { confirm: "You sure?" } %>

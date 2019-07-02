@@ -1,44 +1,42 @@
 require 'rails_helper'
 
 describe Post do
-  before(:each) do 
-    FactoryBot.create(:role)
-  end
+  describe "Validations" do
+    let(:post) { FactoryBot.build(:post) }
 
-  describe "validations" do 
-    describe "presence" do 
-      it "is invalid without a user" do 
-        post = FactoryBot.build(:post, user: nil)
-        expect(post).to be_invalid
-      end
-
-      it "is invalid without a title" do 
-        post = FactoryBot.build(:post, title: nil)
-        expect(post).to be_invalid
-      end
-
-      it "is invalid without a body" do 
-        post = FactoryBot.build(:post, body: nil)
-        expect(post).to be_invalid
-      end
-
-      it "is invalid without a pseudonym" do 
-        post = FactoryBot.build(:post, pseudonym: nil)
-        expect(post).to be_invalid
-      end
+    it "is valid with valid attributes" do
+      expect(post).to be_valid
     end
 
-    describe "uniqueness" do 
-      it "is invalid without a unique title given a pseudonym" do 
-        post = FactoryBot.create(:post)
-        invalid_post = FactoryBot.build(
-          :post, 
-          pseudonym: post.pseudonym, 
-          title: post.title
-        ) 
+    it "is invalid without a user" do
+      post.user = nil
+      expect(post).to be_invalid
+    end
 
-        expect(invalid_post).to be_invalid
-      end
+    it "is invalid without a title" do
+      post.title = ''
+      expect(post).to be_invalid
+    end
+
+    it "is invalid without a body" do
+      post.body = ''
+      expect(post).to be_invalid
+    end
+
+    it "is invalid without a pseudonym" do
+      post.pseudonym = nil
+      expect(post).to be_invalid
+    end
+
+    it "is invalid without a unique title given a pseudonym" do
+      post.save
+      invalid_post = FactoryBot.build(
+        :post,
+        pseudonym: post.pseudonym,
+        title: post.title
+      )
+
+      expect(invalid_post).to be_invalid
     end
   end
 end

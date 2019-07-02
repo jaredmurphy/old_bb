@@ -1,0 +1,7 @@
+<% @posts.each do |post| %>
+  <p>
+    <%= link_to post.title, admin_post_path(post.id) %> |
+    <%= post.pseudonym.name %> |
+    <%= link_to "Edit", edit_admin_post_path(post.id) %>
+  </p>
+<% end %>
