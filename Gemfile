@@ -38,6 +38,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'cancancan', '~> 2.0'
 gem 'trix'
 gem "shrine", "~> 2.0"
+gem "aws-sdk-s3"
 
 group :development, :test do
   gem 'pry'
