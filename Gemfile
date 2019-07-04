@@ -39,6 +39,7 @@ gem 'cancancan', '~> 2.0'
 gem 'trix'
 gem "shrine", "~> 2.0"
 gem "aws-sdk-s3"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem 'pry'
