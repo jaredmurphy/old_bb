@@ -5,7 +5,7 @@ class ImageUploader < Shrine
   plugin :versions   # enable Shrine to handle a hash of files
   plugin :delete_raw # delete processed files after uploading
 
-  process(:store) do |io, context|
+  process(:store) do |io, _context|
     versions = { original: io } # retain original
 
     puts "secret"
