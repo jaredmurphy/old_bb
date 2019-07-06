@@ -1,0 +1,22 @@
+// fonts
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+// colors
+$white: #fff;
+$snow-light: #eceff4;
+$polar-dark: #2e3440;
+
+// breakpoints
+
+$breakpoints: (
+  nano: 400px,
+  mini: 480px,
+  small: 769px,
+  normal: 1200px,
+  large: 1440px
+);
+
+$breakpoint-mini: map-get($breakpoints, 'mini');
+$breakpoint-small: map-get($breakpoints, 'small');
+$breakpoint-normal: map-get($breakpoints, 'normal');
+$breakpoint-large: map-get($breakpoints, 'large');

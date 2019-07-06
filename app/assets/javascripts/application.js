@@ -15,30 +15,22 @@
 //= require trix
 //= require_tree .
 
-  // Show an element
 const show = (elem) => {
   elem.style.display = 'block';
 };
 
-// Hide an element
 const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// Toggle element visibility
 const toggle = (elem) => {
-
-  // If the element is visible, hide it
   if (window.getComputedStyle(elem).display === 'block') {
     hide(elem);
-    return;
+  } else {
+    show(elem);
   }
-
-  // Otherwise, show it
-  show(elem);
 }
 
-// hambuger menu click
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('hamburger').addEventListener('click', (event) => {
     event.preventDefault();

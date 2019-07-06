@@ -1,0 +1,11 @@
+<% if current_user %>
+  <%= link_to "Posts", :posts, class: "header__link" %>
+  <%= link_to "Account", "/account", class: "header__link" %>
+
+  <% if current_user.admin? %>
+    <%= link_to "Admin", "/admin", class: "header__link" %>
+  <% end %>
+<% else %>
+  <%= link_to "Login", new_user_session, class: "header__link" %>
+  <%= link_to "Sign up", new_user_registration, class: "header__link" %>
+<% end %>

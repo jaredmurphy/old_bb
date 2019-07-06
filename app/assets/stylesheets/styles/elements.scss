@@ -1,0 +1,11 @@
+@import "../base/variables";
+
+html, body, .container {
+  background-color: $white;
+}
+
+a {
+  color: $polar-dark;
+  text-decoration: none;
+  cursor: pointer;
+}
