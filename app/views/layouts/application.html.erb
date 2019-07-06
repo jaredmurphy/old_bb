@@ -12,7 +12,47 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <div class="container">
+    <div class="header">
+      <div>
+        <a href="/" class="header__link__logo"><span>Brass Bull</span></a>
+      </div>
+
+      <div class="header__hamburger" id="hamburger">
+        <a class="header__link">
+          <%= image_tag "menu-button", class: "header__hamburger__icon" %>
+        </a>
+      </div>
+
+      <div class="header__nav">
+        <% if current_user %>
+          <a href="/posts" class="header__link"><span>My Posts</span></a>
+          <a href="/account" class="header__link"><span>My Account</span></a>
+
+          <% if current_user.admin? %>
+            <a href="/admin" class="header__link"><span>Admin Panel</span></a>
+          <% end %>
+        <% else %>
+          <a href="/login" class="header__link"><span>Login</span></a>
+          <a href="/signup" class="header__link"><span>Signup</span></a>
+        <% end %>
+      </div>
+
+      <div class="header__nav__mobile" id="nav_mobile">
+        <% if current_user %>
+          <a href="/posts" class="header__link"><span>My Posts</span></a>
+          <a href="/account" class="header__link"><span>My Account</span></a>
+
+          <% if current_user.admin? %>
+            <a href="/admin" class="header__link"><span>Admin Panel</span></a>
+          <% end %>
+        <% else %>
+          <a href="/login" class="header__link"><span>Login</span></a>
+          <a href="/signup" class="header__link"><span>Signup</span></a>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="container" id="container">
       <%= yield %>
     </div>
   </body>
