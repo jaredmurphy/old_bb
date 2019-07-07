@@ -23,15 +23,11 @@ const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-const toggle = (elem) => {
-  if (window.getComputedStyle(elem).display === 'block') {
-    hide(elem);
-  } else {
-    show(elem);
-  }
-}
+const hasClass = (elem, className) => elem.classList.contains(className);
+const addClass = (elem, className) => elem.classList.add(className);
+const removeClass = (elem, className) => elem.classList.remove(className);
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('hamburger').addEventListener('click', (event) => {
     event.preventDefault();
     toggle(document.getElementById('nav_mobile'));
@@ -39,11 +35,26 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-window.addEventListener('resize', function () {
+window.addEventListener('resize', () => {
   const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
   if (viewportWidth > 768) {
     hide(document.getElementById('nav_mobile'));
     show(document.getElementById('container'));
   }
 });
+
+const handleScrollForHeader = () => {
+  const header = document.getElementById('header');
+  const className = 'header__minimize';
+  const scrollPosition = window.scrollY;
+
+  if (hasClass(header, className) && scrollPosition === 0) {
+    removeClass(header, className);
+  } else if (!hasClass(header, className) && scrollPosition > 0) {
+    addClass(header, className);
+  }
+}
+
+document.addEventListener('scroll', handleScrollForHeader);
 
