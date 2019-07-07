@@ -1,0 +1,89 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+.header {
+  width: 100%;
+  font-family: Rubik;
+  position: fixed;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  background-color: $white;
+
+  &__hamburger {
+    @include breakpoint(small) {
+      display: none;
+    }
+
+    &__icon {
+      max-width: 25px;
+    }
+  }
+
+  &__minimize {
+    box-shadow: rgba(216, 222, 233, 0.15) 0px 5px 10px 0px;
+    height: 60px;
+  }
+
+  &__nav {
+    display: none;
+
+    @include breakpoint(small) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__nav__mobile {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 5em);
+
+    @include breakpoint(small) {
+      display: none;
+    }
+  }
+
+  &__link {
+    font-weight: 400;
+    font-size: 1.2em;
+    margin: 18px 10px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid $white;
+    border-radius: 5px;
+    padding: 6px;
+
+    @include breakpoint(small){
+      font-size: 1.1em;
+      margin: 0 10px;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+
+    &:hover {
+      background-color: $snow-light;
+      border-color: $snow-light;
+    }
+
+    &__logo {
+      font-weight: 500;
+      font-size: 2em;
+    }
+  }
+}
+
+.container {
+  padding-top: 120px;
+}

@@ -1,0 +1,19 @@
+<div class="header" id="header">
+  <div>
+    <a href="/" class="header__link__logo"><span>Brass Bull</span></a>
+  </div>
+
+  <div class="header__hamburger" id="hamburger">
+    <a class="header__link">
+      <%= image_tag "menu-button", class: "header__hamburger__icon" %>
+    </a>
+  </div>
+
+  <div class="header__nav">
+    <%= render "layouts/navigation_links" %>
+  </div>
+
+  <div class="header__nav__mobile" id="nav_mobile">
+    <%= render "layouts/navigation_links" %>
+  </div>
+</div>

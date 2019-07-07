@@ -14,3 +14,66 @@
 //= require turbolinks
 //= require trix
 //= require_tree .
+
+
+const show = (elem) => {
+  elem.style.display = 'block';
+};
+
+const hide = (elem) => {
+  elem.style.display = 'none';
+};
+
+const hasClass = (elem, className) => elem.classList.contains(className);
+
+const addClass = (elem, className) => {
+  if (!hasClass(elem, className)) {
+    elem.classList.add(className);
+  }
+}
+
+const removeClass = (elem, className) => {
+  if (hasClass(elem, className)) {
+    elem.classList.remove(className);
+  }
+}
+
+const toggle = (elem) => {
+  if (window.getComputedStyle(elem).display === 'block') {
+    hide(elem);
+    return;
+  }
+  show(elem);
+}
+
+const handleScrollForHeader = () => {
+  const header = document.getElementById('header');
+  const className = 'header__minimize';
+  const scrollPosition = window.scrollY;
+
+  if (scrollPosition > 0) {
+    addClass(header, className);
+  } else {
+    removeClass(header, className);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('hamburger').addEventListener('click', (event) => {
+    event.preventDefault();
+    toggle(document.getElementById('nav_mobile'));
+    toggle(document.getElementById('container'));
+  });
+});
+
+window.addEventListener('resize', () => {
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  if (viewportWidth > 768) {
+    hide(document.getElementById('nav_mobile'));
+    show(document.getElementById('container'));
+  }
+});
+
+document.addEventListener('scroll', handleScrollForHeader);
+
