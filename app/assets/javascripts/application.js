@@ -15,6 +15,7 @@
 //= require trix
 //= require_tree .
 
+
 const show = (elem) => {
   elem.style.display = 'block';
 };
@@ -24,8 +25,38 @@ const hide = (elem) => {
 };
 
 const hasClass = (elem, className) => elem.classList.contains(className);
-const addClass = (elem, className) => elem.classList.add(className);
-const removeClass = (elem, className) => elem.classList.remove(className);
+
+const addClass = (elem, className) => {
+  if (!hasClass(elem, className)) {
+    elem.classList.add(className);
+  }
+}
+
+const removeClass = (elem, className) => {
+  if (hasClass(elem, className)) {
+    elem.classList.remove(className);
+  }
+}
+
+const toggle = (elem) => {
+  if (window.getComputedStyle(elem).display === 'block') {
+    hide(elem);
+    return;
+  }
+  show(elem);
+}
+
+const handleScrollForHeader = () => {
+  const header = document.getElementById('header');
+  const className = 'header__minimize';
+  const scrollPosition = window.scrollY;
+
+  if (scrollPosition > 0) {
+    addClass(header, className);
+  } else {
+    removeClass(header, className);
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('hamburger').addEventListener('click', (event) => {
@@ -43,18 +74,6 @@ window.addEventListener('resize', () => {
     show(document.getElementById('container'));
   }
 });
-
-const handleScrollForHeader = () => {
-  const header = document.getElementById('header');
-  const className = 'header__minimize';
-  const scrollPosition = window.scrollY;
-
-  if (hasClass(header, className) && scrollPosition === 0) {
-    removeClass(header, className);
-  } else if (!hasClass(header, className) && scrollPosition > 0) {
-    addClass(header, className);
-  }
-}
 
 document.addEventListener('scroll', handleScrollForHeader);
 
