@@ -1,5 +1,4 @@
 class Admin::PostsController < AdminController
-  before_action :authenticate_admin!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
