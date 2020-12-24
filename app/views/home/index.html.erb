@@ -1,9 +1,4 @@
 
-<div>
-  <h1 class="title"> The Brass Bull </h1>
-  <h5 class="subtitle"> Curiously Reasonable </h5>
-</div>
-
 <% if current_user %>
   <p> Welcome, <%= current_user.email %>! </p>
   <p> <%= link_to 'logout', destroy_user_session_path, method: :delete %> </p>

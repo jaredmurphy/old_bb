@@ -8,6 +8,7 @@ class ImageUploader < Shrine
   process(:store) do |io, _context|
     versions = { original: io } # retain original
 
+    puts "IMAGE UPLOADER"
     puts "secret"
     puts Rails.application.secrets.process_images
 

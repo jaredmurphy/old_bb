@@ -1,0 +1,5 @@
+<%= link_to link[:name],
+  link[:path],
+  class: "header__link #{link[:active] ? "header__link__active" : ""}",
+  method: link[:method] || :get
+%>

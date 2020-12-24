@@ -1,11 +1,27 @@
 <% if current_user %>
-  <%= link_to "Posts", :posts, class: "header__link" %>
+  <%= render "layouts/nav_link",
+    link: {
+      name: "Posts",
+      path: :posts,
+      active: current_page?(controller: "posts", action: "index")
+    }
+  %>
+
   <%= link_to "Account", "/account", class: "header__link" %>
 
   <% if current_user.admin? %>
-    <%= link_to "Admin", :admin, class: "header__link" %>
+    <%= render "layouts/nav_link",
+      link: {
+        name: "Admin",
+        path: :admin,
+        active: current_page?(controller: "admin/dashboard", action: "index")
+      }
+    %>
   <% end %>
+
+  <%= render "layouts/nav_link", link: { name: "Log out", path: :destroy_user_session, method: :delete } %>
+
 <% else %>
-  <%= link_to "Login", :new_user_session, class: "header__link" %>
-  <%= link_to "Sign up", :new_user_registration, class: "header__link" %>
+  <%= render "layouts/nav_link", link: { name: "Login", path: :new_user_session, } %>
+  <%= render "layouts/nav_link", link: { name: "Sign up", path: :new_user_registration, } %>
 <% end %>

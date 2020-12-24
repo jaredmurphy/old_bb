@@ -1,14 +1,15 @@
-class ImagesController < ApplicationController 
+class ImagesController < ApplicationController
   before_action :set_image, only: :show
 
   def show
   end
 
-  def create 
+  def create
+  #  binding.pry
     @image = Image.new(image_params)
 
     respond_to do |format|
-      if @image.save 
+      if @image.save
         format.html { redirect_to @image, notice: 'Image was successfully created' }
         format.json { render :show, status: :created, location: @image }
       else
@@ -18,7 +19,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def set_image
     @image = Image.find(params[:id])

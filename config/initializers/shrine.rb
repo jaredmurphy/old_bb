@@ -25,3 +25,6 @@ Shrine.storages = {
 
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data # for forms
+
+# TODO: may be able to remove this!!
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
