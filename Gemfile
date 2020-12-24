@@ -38,7 +38,7 @@ gem 'devise'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'cancancan', '~> 2.0'
 gem 'trix'
-gem "shrine", "~> 2.0"
+gem "shrine", "~> 3.3"
 gem "aws-sdk-s3"
 gem "image_processing", "~> 1.2"
 

@@ -86,6 +86,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
+    content_disposition (1.0.0)
     coveralls (0.7.1)
       multi_json (~> 1.3)
       rest-client
@@ -109,7 +110,8 @@ GEM
     dotenv-rails (2.4.0)
       dotenv (= 2.4.0)
       railties (>= 3.2, < 6.0)
-    down (4.5.0)
+    down (5.2.0)
+      addressable (~> 2.5)
     erubi (1.8.0)
     execjs (2.7.0)
     factory_bot (4.8.2)
@@ -266,8 +268,9 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     shellany (0.0.1)
-    shrine (2.11.0)
-      down (~> 4.1)
+    shrine (3.3.0)
+      content_disposition (~> 1.0)
+      down (~> 5.1)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -347,7 +350,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7)
   sass-rails (~> 5.0)
   selenium-webdriver
-  shrine (~> 2.0)
+  shrine (~> 3.3)
   spring
   spring-watcher-listen (~> 2.0.0)
   trix
